@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Nothing Important</title>
+  <style>
+    .container {
+      text-align: center;
+      background-color: black;
+      color: white;
+      border: 2px solid blue;
+      padding: 20px;
+      margin: 50px auto;
+      max-width: 400px;
+      opacity: 0.8;
+    }
+
+    h1 {
+      font-family: Arial, sans-serif;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .button {
+      background-color: blue;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #timer {
+      color: red;
+      font-size: 24px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Hello Agent Jain, welcome to this beautiful website!</h1>
+    <h2>Please find below some text, and click the button when you are finished reading.</h2>
+
+    <div id="a">
+      <p>Right, so bro is very fortunate and very happy with all his gadgets and loves his headphones but...</p>
+    </div>
+
+    <div id="b" class="hidden">
+      <p>It would be great if I could get some Nothing ear 2's. Here are my reasons why I need Nothing ear 2's:</p>
+      <ol>
+        <li>My old Phillips headphones are old and don't work nicely.</li>
+        <li>The Nothings will help me study better because I'm more focused when I hear music.</li>
+        <li>I want to get into mixing sound, and for that, Phillips headphones don't support the required codecs. I have
+          downloaded a free version of Logic Pro on Mac and will use that for editing sound and frequencies.</li>
+        <li>I want to enjoy high-quality lossless audio, which my Phillips headphones don't support.</li>
+        <li>With good headphones, I will exercise more and hang from the railing on our roof to increase my height.</li>
+      </ol>
+    </div>
+
+    <div id="c" class="hidden">
+      <p>Your mission Mr or Mrs Jain or Upadhyay , should you choose to accept it, is to buy me Nothing ear 2's.</p>
+      <p>This message will self-destruct in <span id="timer">5</span> seconds.</p>
+    </div>
+
+    <button id="nextButton" class="button">Next</button>
+
+    <script>
+      var elements = ['a', 'b', 'c'];
+      var currentIndex = 0;
+
+      var nextButton = document.getElementById('nextButton');
+      nextButton.addEventListener('click', showNext);
+
+      function showNext() {
+        var currentElement = document.getElementById(elements[currentIndex]);
+        currentElement.classList.add('hidden');
+        currentIndex++;
+
+        if (currentIndex === elements.length) {
+          var timerElement = document.getElementById('timer');
+          timerElement.style.display = 'inline-block';
+          startTimer(5, selfDestruct);
+        } else {
+          var nextElement = document.getElementById(elements[currentIndex]);
+          nextElement.classList.remove('hidden');
+        }
+      }
+
+      function startTimer(duration, callback) {
+        var timer = setInterval(function () {
+          var timerElement = document.getElementById('timer');
+          var seconds = parseInt(timerElement.innerText);
+          seconds--;
+
+          if (seconds <= 0) {
+            clearInterval(timer);
+            callback();
+          } else {
+            timerElement.innerText = seconds;
+          }
+        }, 1000);
+      }
+
+      function selfDestruct() {
+        var container = document.querySelector('.container');
+        container.style.backgroundColor = 'red';
+        container.innerHTML = '<h1>This message has self-destructed.</h1>';
+        setTimeout(function () {
+          container.style.display = 'none';
+        }, 3000);
+      }
+    </script>
+  </div>
+</body>
+
+</html>
